@@ -17,31 +17,15 @@
 </head>
 
 <body>
+    <main role="main">
+        {% block content %}
 
 
-    <div class="container-fluid">
-        <div class="row">
-            <main role="main" class="col-md-12">
-                
-                <div class="col-md-3">
 
-                </div>
+        {% endblock %}
 
-                <div class="col-md-6">
-                    {% block content %}
+    </main>
 
-                    
-
-                    {% endblock %}
-
-                </div>
-
-                <div class="col-md-3">
-
-                </div>
-            </main>
-        </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
