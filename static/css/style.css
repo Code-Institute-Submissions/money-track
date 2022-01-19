@@ -12,3 +12,8 @@
     font-size: 3.5rem;
   }
 }
+
+.passwordToggle {
+  cursor: pointer;
+  transform: scale(1.1);
+}
