@@ -70,12 +70,12 @@ class LogIn(View):
         password = request.POST['password']
 
         if username and password:
-            user = auth.authenticate(username=username, password=password)
+            user = auth.authenticate(request, username=username, password=password)
 
             if user:
                 if user.is_active:
                     auth.login(request, user)
-                    messages.success(request, 'Welcome' + user.username + 'you are now logged in')
+                    messages.success(request, 'Welcome ' + user.username + ' you are now logged in')
 
                     return redirect('moneytracker')
 
@@ -84,4 +84,11 @@ class LogIn(View):
 
         messages.error(request, 'Please fill all fields')
         return render(request, 'authentication/login.html')
+
+class LogOut(View):
+    def post(self, request):
+        auth.logout(request)
+        messages.success(request, 'You have been logged out successfully')
+        return redirect('login')
+
 
