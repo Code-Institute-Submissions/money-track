@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 import json
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from email_validator import validate_email,  EmailNotValidError
 from django.contrib import messages
+from django.contrib import auth
 
 
 
@@ -59,4 +60,28 @@ class Registration(View):
                 return render(request, 'authentication/registration.html')
 
         return render(request, 'authentication/registration.html')
+
+class LogIn(View):
+    def get(self, request):
+        return render(request, 'authentication/login.html')
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+
+        if username and password:
+            user = auth.authenticate(username=username, password=password)
+
+            if user:
+                if user.is_active:
+                    auth.login(request, user)
+                    messages.success(request, 'Welcome' + user.username + 'you are now logged in')
+
+                    return redirect('moneytracker')
+
+            messages.error(request, 'Invalid credentials, please try again')
+            return render(request, 'authentication/login.html')
+
+        messages.error(request, 'Please fill all fields')
+        return render(request, 'authentication/login.html')
 
