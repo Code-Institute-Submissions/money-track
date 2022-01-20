@@ -5,7 +5,8 @@ from . import views
 urlpatterns = [
     path('', views.index, name = "moneytracker"),
     path('add-expenses', views.add_expenses, name = "add-expenses"),
-    path('edit-expense/<int:id>', views.expense_edit, name = "expense-edit")
+    path('edit-expense/<int:id>', views.expense_edit, name = "expense-edit"),
+    path('expense-delete/<int:id>', views.delete_expense, name = "expense-delete")
 ]
 
 
