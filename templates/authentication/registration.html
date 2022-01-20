@@ -15,7 +15,11 @@
                     <h3>Register for a <strong class="text-success">FREE</strong> Account. </h3>
                 </div>
 
-                <form action="" method="POST">
+                <form action="{% url 'registration' %}" method="POST">
+
+                    {% csrf_token %}
+
+                    {% include 'partials/_messages.html' %}
 
                     <div class="form-group">
                         <input type="text" name="username" id="usernameField" class="form-control form-control-sm"
