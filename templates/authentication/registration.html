@@ -23,7 +23,7 @@
 
                     <div class="form-group">
                         <input type="text" name="username" id="usernameField" class="form-control form-control-sm"
-                            placeholder="Username">
+                            placeholder="Username" value="{{fieldValues.username}}">
                     </div>
                     <div class="invalid-feedback invalid_feedback" style="display:none">
 
@@ -31,7 +31,7 @@
 
                     <div class="form-group">
                         <input type="email" name="email" id="emailField" class="form-control form-control-sm"
-                            placeholder="Email">
+                            placeholder="Email" value="{{fieldValues.email}}"> 
                     </div>
                     <div class="emailFeedbackArea invalid-feedback" style="display:none">
                         
@@ -43,7 +43,7 @@
                         <small class="float-right py-3 passwordToggle" >SHOW</small>
                     </div>
 
-                    <input type="submit" value="Submit" class="btn btn-block btn-primary">
+                    <input type="submit" value="Submit" class="btn btn-block btn-primary submitBtn">
 
                 </form>
             </div>
