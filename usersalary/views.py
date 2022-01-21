@@ -19,7 +19,7 @@ def search_salary(request):
 
 @login_required(login_url='/authentication/login')
 def index(request):
-    categories = Source.objects.all()
+    sources = Source.objects.all()
     salary = UserSalary.objects.filter(owner=request.user)
     paginator = Paginator(salary, 5)
     page_number = request.GET.get('page')
