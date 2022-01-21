@@ -11,8 +11,8 @@ def search_salary(request):
         search_str = json.loads(request.body).get('searchText')
         salary = UserSalary.objects.filter(amount__istartswith=search_str, owner=request.user) | UserSalary.objects.filter(
             date__istartswith=search_str, owner=request.user) | UserSalary.objects.filter(
-            description__icontains=search_str, owner=request.user) | UserSalary().objects.filter(
-            category__istartswith=search_str, owner=request.user)
+            description__icontains=search_str, owner=request.user) | UserSalary.objects.filter(
+            source__istartswith=search_str, owner=request.user)
         data = salary.values()
         return JsonResponse(list(data), safe=False)
 

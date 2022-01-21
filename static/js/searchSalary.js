@@ -12,7 +12,7 @@ searchArea.addEventListener("keyup", (e) => {
     if (searchValue.trim().length > 0) {
         paginationContainer.style.display = "none";
         tableBody.innerHTML = "";
-        fetch("/search-salary", {
+        fetch("/salary/search-salary", {
             body: JSON.stringify({ searchText: searchValue }),
             method: "POST",
         })
