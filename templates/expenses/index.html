@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 <div class="container mt-4">
@@ -22,32 +24,69 @@
 
             {% if expenses.count %}
 
-            <table class="table table-stripped table-hover">
-                <thead>
-                    <tr>
-                        <th>Amount</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" id="searchArea">
+                    </div>
+                </div>
+            </div>
 
-                    {% for expense in page_object %}
+            <div class="app-table">
 
-                    <tr>
-                        <td>{{expense.amount}}</td>
-                        <td>{{expense.category}}</td>
-                        <td>{{expense.description}}</td>
-                        <td>{{expense.date}}</td>
+                <table class="table table-stripped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                        <td><a href="{% url 'expense-edit' expense.id %}" class="btn btn-secondary btn-sm">Edit</a></td>
-                    </tr>
+                        {% for expense in page_object %}
 
-                    {% endfor %}
+                        <tr>
+                            <td>{{expense.amount}}</td>
+                            <td>{{expense.category}}</td>
+                            <td>{{expense.description}}</td>
+                            <td>{{expense.date}}</td>
 
-                </tbody>
-            </table>
+                            <td><a href="{% url 'expense-edit' expense.id %}" class="btn btn-secondary btn-sm">Edit</a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="no-results text text-warning text-center" style="display: none;"><strong>Nothing Found</strong></h4>
+
+            <div class="table-output">
+                <table class="table table-stripped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-body">
+
+
+
+
+
+                    </tbody>
+                </table>
+
+                
+            </div>
             <div class="pagination-container">
                 <div class="">
                     Showing page {{ page_object.number }} of {{ page_object.paginator.num_pages }}
@@ -76,5 +115,7 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'js/searchExpenses.js' %}"></script>
 
 {% endblock %}
