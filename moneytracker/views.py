@@ -2,15 +2,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Category, Expense
 from django.contrib import messages
-
+from django.core.paginator import Paginator
 
 @login_required(login_url='/authentication/login')
 def index(request):
     categories = Category.objects.all()
     expenses = Expense.objects.filter(owner=request.user)
+    paginator = Paginator(expenses, 2)
+    page_number = request.GET.get('page')
+    page_object = Paginator.get_page(paginator, page_number)
 
     context = {
-        'expenses': expenses
+        'expenses': expenses,
+        'page_object': page_object
     }
     return render(request, 'expenses/index.html', context)
 
