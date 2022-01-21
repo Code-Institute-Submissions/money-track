@@ -63,7 +63,7 @@ def add_salary(request):
 
         return redirect('salary')
 
-
+@login_required(login_url='/authentication/login')
 def salary_edit(request, id):
     sources = Source.objects.all()
     salary = UserSalary.objects.get(pk=id)
@@ -73,7 +73,7 @@ def salary_edit(request, id):
         'sources': sources
     }
     if request.method == 'GET':
-        return render(request, 'expenses/edit-salary.html', context)
+        return render(request, 'salary/edit-salary.html', context)
 
     if request.method == 'POST':
         amount = request.POST['amount']
@@ -100,7 +100,7 @@ def salary_edit(request, id):
 
         return redirect('salary')
 
-
+@login_required(login_url='/authentication/login')
 def delete_salary(request, id):
     salary = UserSalary.objects.get(pk=id)
     salary.delete()
