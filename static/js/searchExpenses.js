@@ -30,7 +30,6 @@ searchArea.addEventListener("keyup", (e) => {
                 } else {
                     noResults.style.display = "none";
                     data.forEach((item) => {
-
                         tableBody.innerHTML += `
                         <tr>
 
