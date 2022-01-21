@@ -9,20 +9,20 @@
         <div class="col-md-10">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">Expenses</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">My Expenses</li>
+                    <li class="breadcrumb-item"><a href="">Salary</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Salary</li>
                 </ol>
             </nav>
         </div>
         <div class="col-md-2">
-            <a href="{% url 'add-expenses' %}" class="btn btn-primary">Add Expense</a>
+            <a href="{% url 'add-salary' %}" class="btn btn-primary">Add Salary</a>
         </div>
 
-        <div class="container">
+        <!-- <div class="container">
 
             {% include 'partials/_messages.html' %}
 
-            {% if expenses.count %}
+            {% if salary.count %}
 
             <div class="row">
                 <div class="col-md-8"></div>
@@ -39,7 +39,7 @@
                     <thead>
                         <tr>
                             <th>Amount</th>
-                            <th>Category</th>
+                            <th>Source</th>
                             <th>Description</th>
                             <th>Date</th>
                         </tr>
@@ -112,10 +112,10 @@
                 {% endif %}
             </div>
 
-        </div>
+        </div> -->
     </div>
 </div>
 
-<script src="{% static 'js/searchExpenses.js' %}"></script>
+<script src="{% static 'js/searchSalary.js' %}"></script>
 
 {% endblock %}
