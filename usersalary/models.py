@@ -16,6 +16,7 @@ class UserSalary(models.Model):
 
     class Meta:
         ordering: ['-date']
+        verbose_name_plural = 'User Salaries'
 
 class Source(models.Model):
     name = models.CharField(max_length=200)
