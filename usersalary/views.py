@@ -6,6 +6,16 @@ from django.core.paginator import Paginator
 import json
 from django.http import JsonResponse
 
+def search_salary(request):
+    if request.method == 'POST':
+        search_str = json.loads(request.body).get('searchText')
+        salary = UserSalary.objects.filter(amount__istartswith=search_str, owner=request.user) | UserSalary.objects.filter(
+            date__istartswith=search_str, owner=request.user) | UserSalary.objects.filter(
+            description__icontains=search_str, owner=request.user) | UserSalary().objects.filter(
+            category__istartswith=search_str, owner=request.user)
+        data = salary.values()
+        return JsonResponse(list(data), safe=False)
+
 
 @login_required(login_url='/authentication/login')
 def index(request):
@@ -52,3 +62,47 @@ def add_salary(request):
         messages.success(request, 'Salary saved successfully')
 
         return redirect('salary')
+
+
+def salary_edit(request, id):
+    sources = Source.objects.all()
+    salary = UserSalary.objects.get(pk=id)
+    context = {
+        'salary': salary,
+        'values': salary,
+        'sources': sources
+    }
+    if request.method == 'GET':
+        return render(request, 'expenses/edit-salary.html', context)
+
+    if request.method == 'POST':
+        amount = request.POST['amount']
+
+        if not amount:
+            messages.error(request, 'Amount is required')
+            return render(request, 'salary/edit-salary.html', context)
+        description = request.POST['description']
+        date = request.POST['salary_date']
+        source = request.POST['source']
+
+        if not description:
+            messages.error(request, 'Description is required')
+            return render(request, 'salary/edit-salary.html', context)
+
+        salary.owner = request.user
+        salary.amount = amount
+        salary.date = date
+        salary.source = source
+        salary.description = description
+
+        salary.save()
+        messages.success(request, 'Salary updated successfully')
+
+        return redirect('salary')
+
+
+def delete_salary(request, id):
+    salary = UserSalary.objects.get(pk=id)
+    salary.delete()
+    messages.success(request, 'Salary deleted successfully')
+    return redirect('salary')

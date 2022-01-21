@@ -18,7 +18,7 @@
             <a href="{% url 'add-salary' %}" class="btn btn-primary">Add Salary</a>
         </div>
 
-        <!-- <div class="container">
+        <div class="container">
 
             {% include 'partials/_messages.html' %}
 
@@ -46,15 +46,15 @@
                     </thead>
                     <tbody>
 
-                        {% for expense in page_object %}
+                        {% for salary in page_object %}
 
                         <tr>
-                            <td>{{expense.amount}}</td>
-                            <td>{{expense.category}}</td>
-                            <td>{{expense.description}}</td>
-                            <td>{{expense.date}}</td>
+                            <td>{{salary.amount}}</td>
+                            <td>{{salary.source}}</td>
+                            <td>{{salary.description}}</td>
+                            <td>{{salary.date}}</td>
 
-                            <td><a href="{% url 'expense-edit' expense.id %}" class="btn btn-secondary btn-sm">Edit</a>
+                            <td><a href="{% url 'salary-edit' salary.id %}" class="btn btn-secondary btn-sm">Edit</a>
                             </td>
                         </tr>
 
@@ -71,7 +71,7 @@
                     <thead>
                         <tr>
                             <th>Amount</th>
-                            <th>Category</th>
+                            <th>Source</th>
                             <th>Description</th>
                             <th>Date</th>
                         </tr>
@@ -112,7 +112,7 @@
                 {% endif %}
             </div>
 
-        </div> -->
+        </div>
     </div>
 </div>
 
