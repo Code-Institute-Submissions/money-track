@@ -221,6 +221,10 @@ def export_excel(request):
     return reply
 
 
+def export_pdf(request):
+
+    respond = HttpResponse(content_type='application/pdf')
+    repond['Content-Disposition'] = 'attachment; filename=Expenses' + str(datetime.datetime.now()) + '.pdf'
 
 
 
