@@ -7,6 +7,8 @@ import json
 from django.http import JsonResponse, HttpResponse
 import datetime
 import csv
+import xlsxwriter
+import xlwt
 
 
 def search_expenses(request):
@@ -175,7 +177,7 @@ def salary_stats_view(request):
 def export_csv(request):
 
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment: Filename=Expenses' + str(datetime.datetime.now()) + '.csv'
+    response['Content-Disposition'] = 'attachment; filename=Expenses' + str(datetime.datetime.now()) + '.csv'
 
     writer = csv.writer(response)
     writer.writerow(['Amount', 'Description', 'Category', 'Date'])
@@ -186,5 +188,42 @@ def export_csv(request):
         writer.writerow([expense.amount, expense.description, expense.category, expense.date])
 
     return response
+
+
+def export_excel(request):
+    reply = HttpResponse(content_type='application/ms-excel')
+    reply['Content-Disposition'] = 'attachment; filename=Expenses' + str(datetime.datetime.now()) + '.xls'
+
+    wbook = xlwt.Workbook(encoding='utf-8')
+    wsheet = wbook.add_sheet('Expenses')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Amount', 'Description', 'Category', 'Date']
+
+    for col_num in range(len(columns)):
+        wsheet.write(row_num, col_num, columns[col_num], font_style)
+
+    font_style = xlwt.XFStyle()
+
+    rows = Expense.objects.filter(owner=request.user).values_list('amount', 'description', 'category', 'date')
+
+    for row in rows:
+        row_num += 1
+
+        for col_num in range(len(row)):
+            wsheet.write(row_num, col_num, str(row[col_num]), font_style)
+
+    wbook.save(reply)
+
+    return reply
+
+
+
+
+
+
 
 
