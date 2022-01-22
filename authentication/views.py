@@ -75,11 +75,11 @@ class LogIn(View):
             if user:
                 if user.is_active:
                     auth.login(request, user)
-                    messages.success(request, 'Welcome ' + user.username + ' you are now logged in')
+                    messages.success(request, 'Welcome ' + user.username + ' you are now logged in.')
 
                     return redirect('moneytracker')
 
-            messages.error(request, 'Invalid credentials, please try again')
+            messages.error(request, 'Invalid credentials, please try again.')
             return render(request, 'authentication/login.html')
 
         messages.error(request, 'Please fill all fields')
@@ -88,7 +88,7 @@ class LogIn(View):
 class LogOut(View):
     def post(self, request):
         auth.logout(request)
-        messages.success(request, 'You have been logged out successfully')
+        messages.success(request, 'You have been logged out successfully.')
         return redirect('login')
 
 
