@@ -8,11 +8,11 @@ const submitBtn = document.querySelector(".submitBtn")
 
 
 const handleToggle = (e) => {
-    if (passwordToggle.textContent === "SHOW") {
-        passwordToggle.textContent = "HIDE";
+    if (passwordToggle.textContent === "Show Password") {
+        passwordToggle.textContent = "Hide Password";
         passwordField.setAttribute("type", "text");
     } else {
-        passwordToggle.textContent = "SHOW";
+        passwordToggle.textContent = "Show Password";
         passwordField.setAttribute("type", "password");
     }
 
