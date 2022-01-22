@@ -7,7 +7,6 @@ import json
 from django.http import JsonResponse, HttpResponse
 import datetime
 import csv
-import xlsxwriter
 import xlwt
 from django.template.loader import render_to_string
 from weasyprint import HTML
