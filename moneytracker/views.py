@@ -139,3 +139,34 @@ def expense_category_summary(request):
 def stats_view(request):
     return render(request, 'expenses/stats.html')
 
+
+def salary_category_summary(request):
+    current_date = datetime.date.today()
+    three_months_ago = current_date-datetime.timedelta(days=30*3)
+    salary = UserSalary.objects.filter(owner=request.user, date__gte=three_months_ago, date__lte=current_date)
+    summary = {}
+
+    def get_salary_category(salary):
+        return salary.category
+    category_list = list(set(map(get_salary_category, salary)))
+
+    def get_salary_category_amount(category):
+        amount = 0
+        filtered_by_category = salary.filter(category=category)
+
+        for item in filtered_by_category:
+            amount += item.amount
+
+        return amount
+
+    for x in salary:
+        for y in category_list:
+            summary[y] = get_salary_category_amount(y)
+
+    return JsonResponse({ 'salary_category_data': summary }, safe=False)
+
+
+
+def salary_stats_view(request):
+    return render(request, 'salary/salary_stats.html')
+
