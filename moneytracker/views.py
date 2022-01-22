@@ -113,7 +113,7 @@ def delete_expense(request, id):
 def expense_category_summary(request):
     current_date = datetime.date.today()
     three_months_ago = current_date-datetime.timedelta(days=30*3)
-    expenses = Expense.objects.filter(owner=request.user, date__gte=three_months_ago, date_lte=current_date)
+    expenses = Expense.objects.filter(owner=request.user, date__gte=three_months_ago, date__lte=current_date)
     summary = {}
 
     def get_expense_category(expense):
