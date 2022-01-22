@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 import json
 from django.http import JsonResponse
+import datetime
 
 
 def search_expenses(request):
@@ -107,3 +108,34 @@ def delete_expense(request, id):
     expense.delete()
     messages.success(request, 'Expense deleted successfully')
     return redirect('moneytracker')
+
+
+def expense_category_summary(request):
+    current_date = datetime.date.today()
+    three_months_ago = current_date-datetime.timedelta(days=30*3)
+    expenses = Expense.objects.filter(owner=request.user, date__gte=three_months_ago, date_lte=current_date)
+    summary = {}
+
+    def get_expense_category(expense):
+        return expense.category
+    category_list = list(set(map(get_expense_category, expenses)))
+
+    def get_expense_category_amount(category):
+        amount = 0
+        filtered_by_category = expenses.filter(category=category)
+
+        for item in filtered_by_category:
+            amount += item.amount
+
+        return amount
+
+    for x in expenses:
+        for y in category_list:
+            summary[y] = get_expense_category_amount(y)
+
+    return JsonResponse({ 'expense_category_data': summary }, safe=False)
+
+
+def stats_view(request):
+    return render(request, 'expenses/stats.html')
+
